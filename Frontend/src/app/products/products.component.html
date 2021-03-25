@@ -1,0 +1,50 @@
+<div class='card'>
+    <div class='card-header'>
+     {{pageTitle}}
+    </div>
+    
+    <div class='card-body'>            
+      <div class='table-responsive'>
+        <table class='table bg-pic'
+              *ngIf = 'products && products.length'>
+          <thead>
+            <tr>
+              <th>
+                <button class='btn btn-primary'
+                (click)='toggleImage()'>
+                  {{showImage? 'Hide' : 'Show'}} Image
+                </button>
+              </th>
+              <th>Product</th>
+              <th>Code</th>
+              <th>Available</th>
+              <th>Price</th>
+              <th>5 Star Rating</th>
+            </tr>
+           
+          </thead>
+          <tbody>  
+              <tr *ngFor='let product of products'>
+                  <td><img *ngIf='showImage'
+                    [src] = 'product.imageUrl' 
+                    [title] = 'product.productName'
+                    [style.width.px] = 'imageWidth' 
+                    [style.margin.px] = 'imageMargin'></td>
+                  <td>{{ product.productName|uppercase }}</td>
+                  <td>{{ product.productCode }}</td>
+                  <td>{{ product.releaseDate }}</td>
+                  <td>{{ product.price|currency:'USD' }}</td>
+                  <td>{{ product.starRating }}</td>
+                  <td>
+                    <button class="btn btn-warning" style="cursor:pointer" *ngIf="_auth.loggedIn()" (click)="editProduct(product)" style="margin-left: 20px;"> Edit</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" style="cursor:pointer" *ngIf="_auth.loggedIn()"(click)="deleteProduct(product)"> Delete</button>
+                  </td>
+                </tr>              
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
